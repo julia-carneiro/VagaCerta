@@ -4,56 +4,103 @@ export const Wrapper = styled.SafeAreaView`
   flex: 1;
   justify-content: flex-start;
   align-items: center;
+  background-color: ${({ theme }) => theme.COLORS.WHITE};  /* Cor de fundo mais clara */
 `;
 
 export const Header = styled.View`
   flex-direction: row;
   justify-content: space-between;
   width: 90%;
-  padding: 16px 0;
+  padding-top: 45px;
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  border-bottom-color: ${({theme})=>theme.COLORS.GREEN};
+  border-bottom-color: ${({ theme }) => theme.COLORS.GREEN};
 `;
+
 export const HeaderButtonContainer = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: space-between;
   padding: 8px 0;
 `;
+
 export const ButtonIcon = styled.View``;
+
 export const ButtonText = styled.Text`
-  font-size: ${({theme})=>theme.FONT_SIZE.SM}px;
+  font-size: ${({ theme }) => theme.FONT_SIZE.SM}px;
   font-weight: 700;
   text-align: center;
-  color: ${({theme})=>theme.COLORS.BLUE};
-`;
-
-export const Container = styled.View`
-  flex: 1;
-  align-items: center;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 100%;
-  padding: 16px;
-  gap: 16px;
-  background-color: ${({theme})=>theme.COLORS.WHITE};
+  color: ${({ theme }) => theme.COLORS.BLUE};
 `;
 
 export const ContentContainer = styled.View`
   width: 100%;
   gap: 16px;
+  padding: 16px; 
+`;
+
+export const ColoredContainer = styled.View`
+  background-color: ${({ theme }) => theme.COLORS.GRAY_02};
+  padding: 16px;
+  border-radius: 8px;
+  margin: 8px 0;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Title = styled.Text`
-  font-size: ${({theme})=>theme.FONT_SIZE.LG}px;
+  font-size: ${({ theme }) => theme.FONT_SIZE.LG}px;
   font-weight: 700;
   text-align: center;
-  color: ${({theme})=>theme.COLORS.BLACK};
+  color: ${({ theme }) => theme.COLORS.BLACK};
 `;
 
 export const Description = styled.Text`
-  font-size: ${({theme})=>theme.FONT_SIZE.SM}px;
-  font-weight: 400;
-  text-align: left;
-  color: ${({theme})=>theme.COLORS.BLACK};
+  font-size: ${({ theme }) => theme.FONT_SIZE.MD}px;
+  font-weight: 500;
+  text-align: center;
+  color: ${({ theme }) => theme.COLORS.BLACK};
+`;
+
+export const InfoContainer = styled.View`
+  width: 100%;
+  padding: 8px;
+`;
+
+export const InfoRow = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;  
+  padding: 8px 0;
+`;
+
+export const InfoLabel = styled.Text`
+  font-size: ${({ theme }) => theme.FONT_SIZE.SM}px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.COLORS.GRAY};
+`;
+
+export const InfoValue = styled.Text`
+  font-size: ${({ theme }) => theme.FONT_SIZE.SM}px;
+  color: ${({ theme }) => theme.COLORS.BLACK};
+`;
+
+interface StatusBadgeProps {
+  status: 'aberta' | 'fechada'; 
+}
+
+export const StatusBadge = styled.View<StatusBadgeProps>`
+  background-color: ${({ status, theme }) => 
+    status === 'aberta' ? theme.COLORS.GREEN : theme.COLORS.RED};
+  padding: 4px 8px;
+  border-radius: 8px;
+`;
+
+export const StatusText = styled.Text`
+  font-size: ${({ theme }) => theme.FONT_SIZE.SM}px;
+  color: ${({ theme }) => theme.COLORS.WHITE};  
+`;
+
+export const DateText = styled.Text`
+  font-size: ${({ theme }) => theme.FONT_SIZE.SM}px;
+  color: ${({ theme }) => theme.COLORS.GRAY};
 `;

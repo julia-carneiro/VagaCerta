@@ -58,7 +58,8 @@ export default function Login({ navigation }) {
                         title="Entrar" 
                         noSpacing={true} 
                         variant='primary'
-                        onPress={handleLogin}
+                        onPress={() => navigation.navigate('Auth', {screen: 'Home'})} //DEBUG
+                        //onPress={handleLogin}
                     />
                     <TextContainer>
                         <TextBlack>Não tem uma conta?</TextBlack>

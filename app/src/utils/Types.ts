@@ -4,7 +4,7 @@ export type VagasProps = {
     descricao: string;   
     dataCadastro: string; 
     telefone: string;    
-    status: string;      
+    status: 'aberta' | 'fechada';      
     empresa: string;     
 };
 
