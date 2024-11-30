@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { 
     Wrapper,
@@ -14,11 +14,37 @@ import {
 import Logo from '../../components/Logo';
 import theme from '../../theme';
 import { Button } from '../../components/Button';
+import { VagasProps } from '../../utils/Types';
+import api from '../../services/api';
 
 
 export default function Details({route, navigation }) {
 
-    const {id} = route.params;
+    const [id, setId] = useState(route.params.id)
+    const [vaga, setVaga] = useState<VagasProps>(null)
+
+    const fetchVaga = async (id) => { 
+        try {
+            const response = await api.get(`/vagas/${id}`); // Corrigir interpolação
+            const data = response.data;
+            setVaga({
+                id: data.id,
+                titulo: data.titulo,
+                descricao: data.descricao,
+                dataCadastro: data.dataCadastro,
+                telefone: data.telefone,
+                status: data.status,
+                empresa: data.empresa
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    
+
+    useEffect(() => {
+        fetchVaga(id);
+    },[id])
 
     return (
         <Wrapper>
@@ -34,18 +60,24 @@ export default function Details({route, navigation }) {
                 <Logo />
             </Header>
 
-            <Container>
-                <ContentContainer>
-                    <Title>{JSON.stringify(id)}</Title>
-                    <Description>Com este id é possível ir no endpoint da API buscar o restante da informação.</Description>
-                </ContentContainer>
+            {vaga ? (
+                 <Container>
+                    <ContentContainer>
+                        <Title>{vaga.titulo}</Title>
+                        <Description>{vaga.descricao}</Description>
+                    </ContentContainer>
+    
+                    <Button 
+                        title="Entrar em contato" 
+                        noSpacing={true} 
+                        variant='primary'
+                        />
+             </Container>
+            ) : (
+                <Title>Vaga não encontrada.</Title>
+            )}
 
-                <Button 
-                    title="Entrar em contato" 
-                    noSpacing={true} 
-                    variant='primary'
-                    />
-            </Container>
+           
         </Wrapper>
     );
 }
