@@ -144,7 +144,7 @@ sequelize.sync({ force: false })
     .then(() => {
         console.log('Banco de dados sincronizado.');
         app.listen(port, () => {
-            console.log(`Servidor rodando em ${baseURL}:${port}`);
+            console.log(`Servidor rodando em {IP DA SUA REDE}:${port}`);
         });
     })
     .catch(err => {
