@@ -31,17 +31,27 @@ app.get('/usuarios/:id?', (req, res) => {
 });
 
 // Rota para editar um usuário
-app.put('/usuarios/:id', async (req, res) => {
+app.put('/usuarios', async (req, res) => {
+    const { id, nome, email, senha } = req.body;
+
+    if (!id) {
+        return res.status(400).json({ message: 'ID do usuário é necessário.' });
+    }
+
     try {
-        const user = await usersController.updateUser(req.params.id, req.body);
+        const user = await user.findByIdAndUpdate(id, { nome, email, senha }, { new: true });
+
         if (!user) {
-            return res.status(404).send('Usuário não encontrado');
+            return res.status(404).json({ message: 'Usuário não encontrado.' });
         }
-        res.json(user);
+
+        res.status(200).json({ user });
     } catch (error) {
-        res.status(500).send('Erro ao atualizar usuário');
+        console.error('Erro ao atualizar o usuário:', error);
+        res.status(500).json({ message: 'Erro no servidor.' });
     }
 });
+
 
 // Rota para remover um usuário
 app.delete('/usuarios/:id', (req, res) => {

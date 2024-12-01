@@ -42,6 +42,7 @@ function findUsersByEmail(email) {
     return users.find(user => user.email === email);
 }
 
+
 // Função para atualizar usuário
 async function updateUser(id, data) {
     const index = users.findIndex(user => user.id === id);
@@ -49,17 +50,18 @@ async function updateUser(id, data) {
 
     const user = users[index];
 
-    // Atualiza apenas os campos fornecidos
+    // Se a senha foi alterada, criptografa antes de salvar
     const updatedUser = {
         ...user,
         nome: data.nome || user.nome,
         email: data.email || user.email,
-        senha: data.senha ? await hashPassword(data.senha) : user.senha,
+        senha: data.senha ? await bcrypt.hash(data.senha, 10) : user.senha, // Se a senha foi fornecida, criptografa
     };
 
     users[index] = updatedUser;
     return updatedUser;
 }
+
 
 
 // Função para remover usuário

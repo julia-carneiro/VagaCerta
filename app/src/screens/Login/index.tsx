@@ -20,8 +20,8 @@ export default function Login({ navigation }) {
             const response = await api.post('/login', { email, senha });
             
             if (response.status === 200) {
-                const user = response.data.user; 
-                await AsyncStorage.setItem('user', JSON.stringify(user)); 
+                const jsonValue = JSON.stringify(response.data.user); 
+                await AsyncStorage.setItem('user', jsonValue); 
                 navigation.navigate('Auth', { screen: 'Home' }); 
             }
         } catch (error) {
@@ -31,9 +31,6 @@ export default function Login({ navigation }) {
         }
     };
     
-    
-    
-   
 
     return (
         <Wrapper>
