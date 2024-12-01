@@ -40,6 +40,7 @@ export default function Profile({ navigation }) {
                     setSenha(''); // Limpa a senha para segurança
                     setSenhaOriginal(user.senha); // Armazena a senha original
                 }
+                
             } catch (error) {
                 console.error('Erro ao recuperar dados do usuário:', error);
             }
@@ -53,6 +54,7 @@ export default function Profile({ navigation }) {
                 id,
                 nome,
                 email,
+                senha
             };
 
             if (senha && senha !== senhaOriginal) {
