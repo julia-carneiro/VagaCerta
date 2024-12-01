@@ -11,12 +11,13 @@ import {
 } from '../Profile/styles';
 import Logo from '../../components/Logo';
 import theme from '../../theme';
-import Input from '../../components/Input'
+import Input from '../../components/Input';
 import { Button } from '../../components/Button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../../services/api';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-export default function Profile({navigation }) {
+export default function Profile({ navigation }) {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
@@ -28,8 +29,8 @@ export default function Profile({navigation }) {
             try {
                 const jsonValue = await AsyncStorage.getItem('user');
                 let user = JSON.parse(jsonValue); 
-                
-                const response = await api.get(`/usuarios/${user.id}`)
+
+                const response = await api.get(`/usuarios/${user.id}`);
                 user = response.data;
 
                 if (user) {
@@ -48,22 +49,18 @@ export default function Profile({navigation }) {
 
     const handleEdit = async () => {
         try {
-            // Cria o objeto de atualização
             const updatedData = {
                 id,
                 nome,
                 email,
             };
 
-            // Verifica se a senha foi alterada
             if (senha && senha !== senhaOriginal) {
-                updatedData.senha = senha; // Adiciona a senha apenas se alterada
+                updatedData.senha = senha;
             }
 
-            // Atualiza os dados no AsyncStorage
             await AsyncStorage.setItem('user', JSON.stringify(updatedData)); 
 
-            // Faz a requisição de atualização
             const response = await api.put(`/usuarios/${id}`, updatedData);
 
             if (response.status === 200) {
@@ -72,6 +69,15 @@ export default function Profile({navigation }) {
             }
         } catch (error) {
             console.error('Erro ao salvar os dados:', error);
+        }
+    };
+
+    const handleLogout = async () => {
+        try {
+            await AsyncStorage.removeItem('user'); // Remove o usuário do AsyncStorage
+            navigation.navigate('Login'); // Redireciona para a tela de login
+        } catch (error) {
+            console.error('Erro ao fazer logout:', error);
         }
     };
 
@@ -91,13 +97,13 @@ export default function Profile({navigation }) {
 
             <Container>
                 <ContentContainer>
-                    <Input label='Nome' placeholder='digite seu nome' value={nome} onChangeText={setNome} />
-                    <Input label='E-mail' placeholder='digite seu e-mail' value={email} onChangeText={setEmail} />
-                    <Input 
-                        label='Senha' 
-                        placeholder='digite sua senha' 
-                        value={senha} 
-                        onChangeText={setSenha} 
+                    <Input label="Nome" placeholder="Digite seu nome" value={nome} onChangeText={setNome} />
+                    <Input label="E-mail" placeholder="Digite seu e-mail" value={email} onChangeText={setEmail} />
+                    <Input
+                        label="Senha"
+                        placeholder="Digite sua senha"
+                        value={senha}
+                        onChangeText={setSenha}
                         secureTextEntry
                     />
                 </ContentContainer>
@@ -105,8 +111,15 @@ export default function Profile({navigation }) {
                 <Button
                     title="Salvar informações"
                     noSpacing={true}
-                    variant='primary'
+                    variant="primary"
                     onPress={handleEdit}
+                />
+
+                <Button
+                    title="Sair"
+                    noSpacing={true}
+                    variant="secondary"
+                    onPress={handleLogout} 
                 />
             </Container>
         </Wrapper>

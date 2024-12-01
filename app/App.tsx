@@ -12,6 +12,7 @@ import FormScreen  from './src/screens/Form';
 import List  from './src/screens/List';
 import Profile  from './src/screens/Profile';
 import Details  from './src/screens/Details';
+import AuthLoadingScreen from './src/screens/Loading/AuthLoading';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -63,7 +64,8 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <StatusBar style="auto" />
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName='AuthLoadingScreen' screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="AuthLoadingScreen" component={AuthLoadingScreen} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="FormScreen" component={FormScreen} />
           <Stack.Screen name="Auth" component={Auth} />
