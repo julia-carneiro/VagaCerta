@@ -19,16 +19,25 @@ async function findUsersByEmail(email) {
 }
 
 async function updateUser(id, data) {
+    // Busca o usuário pelo ID
     const user = await User.findByPk(id);
-    if (!user) return null;
-
-    if (data.senha) {
-        data.senha = await bcrypt.hash(data.senha, 10);
+    if (!user) {
+        return null; // Retorna null se o usuário não for encontrado
     }
 
+    // Se a senha foi enviada, criptografa antes de salvar
+    if (data.senha) {
+        data.senha = await bcrypt.hash(data.senha, 10);
+    } else {
+        // Remove o campo senha do objeto data para evitar sobrescrita
+        delete data.senha;
+    }
+
+    // Atualiza os campos restantes
     await user.update(data);
-    return user;
+    return user; // Retorna o usuário atualizado
 }
+
 
 async function removeUser(id) {
     const user = await User.findByPk(id);
