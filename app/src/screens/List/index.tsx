@@ -6,6 +6,8 @@ import Logo from '../../components/Logo';
 import VagaCard from '../../components/VagaCard';
 import api from '../../services/api'; 
 
+import { useFocusEffect } from '@react-navigation/native';
+
 
 export default function List() {
 
@@ -26,17 +28,23 @@ export default function List() {
       } 
 
       fetchVagas();
+      
+        const interval = setInterval(() => {
+            fetchVagas();
+        }, 30000); // Atualiza a cada 30 segundos
+    
+        return () => clearInterval(interval); 
+    
     }, [])
 
     const formatDate = (date: string) => {
       const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
       return new Date(date).toLocaleDateString('pt-BR', options);
     };
-    
+
     return (
         <Wrapper>
             <Image source={BGTop} style={{maxHeight: 86}}/>
-
             <Container>
                 <Logo />
                 <TextVagas>{vagas.length} vagas encontradas!</TextVagas>

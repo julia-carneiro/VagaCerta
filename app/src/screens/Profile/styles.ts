@@ -10,7 +10,8 @@ export const Header = styled.View`
   flex-direction: row;
   justify-content: space-between;
   width: 90%;
-  padding: 16px 0;
+  padding-top: 45px;
+  padding-bottom: 12px;
   border-bottom-width: 1px;
   border-bottom-style: solid;
   border-bottom-color: ${({theme})=>theme.COLORS.GREEN};
