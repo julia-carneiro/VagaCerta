@@ -78,7 +78,6 @@ export default function Profile({ navigation }) {
 
     const handleLogout = async () => {
         await logout(); // Chama a função do contexto
-        //navigation.navigate('Login'); // Garante a navegação para a tela de login
     };
     
 
