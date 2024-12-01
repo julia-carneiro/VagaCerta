@@ -9,12 +9,10 @@ import api from '../../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
 
 export default function FormScreen({ navigation }) {
-    // Estados para o formulário
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
-    // Função de cadastro
     const handleRegister = async () => {
         if (!nome || !email || !senha) {
             alert("Por favor, preencha todos os campos.");
@@ -22,26 +20,35 @@ export default function FormScreen({ navigation }) {
         }
 
         try {
-            // Dados a serem enviados para a API
-            const userData = {
-                nome,
-                email,
-                senha,
-            };
+            const userData = { nome, email, senha };
 
-            // Envia a requisição para a API
-            const response = await api.post('/usuarios', userData); 
+            const response = await api.post('/usuarios', userData);
 
             if (response.status === 201) {
                 await AsyncStorage.setItem('user', JSON.stringify(response.data));
 
                 alert('Cadastro realizado com sucesso!');
-                // Navegando para a tela de login após o sucesso
                 navigation.navigate('Login');
             }
         } catch (error) {
+            if (error.response) {
+                // Verifica se o erro veio do servidor
+                if (error.response.status === 409) {
+                    // Código 409: Conflito (e-mail já cadastrado)
+                    alert('Este e-mail já está em uso. Por favor, use outro e-mail.');
+                } else if (error.response.status === 400) {
+                    // Código 400: Solicitação inválida
+                    alert('Dados inválidos. Verifique as informações e tente novamente.');
+                } else {
+                    // Outros erros do servidor
+                    alert(`Erro no servidor: ${error.response.data.message || 'Tente novamente mais tarde.'}`);
+                }
+            } else {
+                // Erros de rede ou outros problemas não relacionados ao back-end
+                alert('Erro ao cadastrar. Verifique sua conexão com a internet.');
+            }
+
             console.error('Erro ao realizar o cadastro:', error);
-            alert('Erro ao cadastrar, tente novamente.');
         }
     };
 
@@ -75,7 +82,7 @@ export default function FormScreen({ navigation }) {
                         title="Cadastrar"
                         noSpacing={true}
                         variant="primary"
-                        onPress={handleRegister} // Chama a função de cadastro
+                        onPress={handleRegister}
                     />
                     <TextContainer>
                         <TextBlack>Já tem uma conta?</TextBlack>

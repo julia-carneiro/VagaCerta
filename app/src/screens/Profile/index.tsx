@@ -43,6 +43,10 @@ export default function Profile({ navigation }) {
                 }
                 
             } catch (error) {
+                if (error.response.status === 409) {
+                    // Código 409: Conflito (e-mail já cadastrado)
+                    alert('Este e-mail já está em uso. Por favor, use outro e-mail.');
+                }
                 console.error('Erro ao recuperar dados do usuário:', error);
             }
         };
@@ -70,6 +74,10 @@ export default function Profile({ navigation }) {
                 alert('Informações salvas com sucesso!');
             }
         } catch (error) {
+            if (error.response.status === 409) {
+                // Código 409: Conflito (e-mail já cadastrado)
+                alert('Este e-mail já está em uso. Por favor, use outro e-mail.');
+            }
             console.error('Erro ao salvar os dados:', error);
         }
     };

@@ -19,9 +19,13 @@ app.post('/usuarios', async (req, res) => {
         const user = await usersController.createUser(req.body);
         res.status(201).json(user);
     } catch (error) {
+        if (error.message === 'E-mail já está em uso') {
+            return res.status(409).json({ message: 'E-mail já está em uso. Por favor, use outro e-mail.' });
+        }
         res.status(500).send('Erro ao criar usuário');
     }
 });
+
 
 app.get('/usuarios/:id?', async (req, res) => {
     try {
@@ -50,6 +54,12 @@ app.put('/usuarios/:id', async (req, res) => {
         }
         res.status(200).json(user);
     } catch (error) {
+        // Verifica se o erro é relacionado ao e-mail
+        if (error.message === 'E-mail já está em uso') {
+            return res.status(409).json({ message: 'E-mail já está em uso. Por favor, use outro e-mail.' });
+        }
+
+        // Outros erros do servidor
         res.status(500).json({ message: 'Erro no servidor.' });
     }
 });
