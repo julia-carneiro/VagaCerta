@@ -16,6 +16,7 @@ import { Button } from '../../components/Button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../../services/api';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { useAuth } from '../../context/AuthContext';
 
 export default function Profile({ navigation }) {
     const [nome, setNome] = useState('');
@@ -67,21 +68,19 @@ export default function Profile({ navigation }) {
 
             if (response.status === 200) {
                 alert('Informações salvas com sucesso!');
-                navigation.navigate('Auth', { screen: 'Home' });
             }
         } catch (error) {
             console.error('Erro ao salvar os dados:', error);
         }
     };
 
+    const { user, logout } = useAuth();
+
     const handleLogout = async () => {
-        try {
-            await AsyncStorage.removeItem('user'); // Remove o usuário do AsyncStorage
-            navigation.navigate('Login'); // Redireciona para a tela de login
-        } catch (error) {
-            console.error('Erro ao fazer logout:', error);
-        }
+        await logout(); // Chama a função do contexto
+        //navigation.navigate('Login'); // Garante a navegação para a tela de login
     };
+    
 
     return (
         <Wrapper>
