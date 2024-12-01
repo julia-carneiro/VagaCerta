@@ -12,7 +12,6 @@ export const Header = styled.View`
   justify-content: space-between;
   width: 90%;
   padding-top: 45px;
-  padding-bottom: 12px;
   border-bottom-width: 1px;
   border-bottom-style: solid;
   border-bottom-color: ${({ theme }) => theme.COLORS.GREEN};
