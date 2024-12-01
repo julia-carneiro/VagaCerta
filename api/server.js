@@ -39,19 +39,16 @@ app.put('/usuarios', async (req, res) => {
     }
 
     try {
-        const user = await user.findByIdAndUpdate(id, { nome, email, senha }, { new: true });
-
+        const user = await usersController.updateUser(id, { nome, email, senha });
         if (!user) {
             return res.status(404).json({ message: 'Usuário não encontrado.' });
         }
-
         res.status(200).json({ user });
     } catch (error) {
         console.error('Erro ao atualizar o usuário:', error);
         res.status(500).json({ message: 'Erro no servidor.' });
     }
 });
-
 
 // Rota para remover um usuário
 app.delete('/usuarios/:id', (req, res) => {
@@ -107,17 +104,20 @@ app.post('/login', async (req, res) => {
     }
 
     try {
-        const user = await user.findOne({ email });
+        const user = usersController.findUsersByEmail(email);
 
+        // Verifica se o usuário foi encontrado antes de continuar
         if (!user) {
             return res.status(404).json({ message: 'Usuário não encontrado' });
         }
 
-        const isPasswordCorrect = await user.comparePassword(senha);
+        // Agora verificamos se a senha está correta
+        const isPasswordCorrect = await usersController.checkPassword(user.senha, senha);
         if (!isPasswordCorrect) {
             return res.status(401).json({ message: 'Senha incorreta' });
         }
 
+        // Se chegou até aqui, login bem-sucedido
         res.status(200).json({ user });
     } catch (error) {
         console.error('Erro no login:', error);

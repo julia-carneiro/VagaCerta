@@ -24,11 +24,12 @@ export default function Login({ navigation }) {
                 await AsyncStorage.setItem('user', jsonValue); 
                 navigation.navigate('Auth', { screen: 'Home' }); 
             }
-        } catch (error) {
+        }catch (error) {
             console.log('Erro no login: ', error.response ? error.response.data : error.message);
-            const message = error.response ? error.response.data : error.message;
+            const message = error.response && error.response.data ? error.response.data.message : error.message;
             setErrorMessage(message); // Atualiza o estado com a mensagem de erro
         }
+        
     };
     
 
@@ -51,12 +52,12 @@ export default function Login({ navigation }) {
                         onChangeText={setSenha}
                     />
                     
-                    {/* Exibe a mensagem de erro, se houver */}
                     {errorMessage ? (
                         <TextContainer>
                             <TextBlack style={{ color: 'red' }}>{errorMessage}</TextBlack>
                         </TextContainer>
                     ) : null}
+
 
                     <Button 
                         title="Entrar" 

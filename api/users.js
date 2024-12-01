@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcrypt');
 
-let users = []; //Armazena usuários temporariamente
+let users = []; // Armazena usuários temporariamente
 
 // Função para gerar o hash da senha
 async function hashPassword(password) {
@@ -42,7 +42,6 @@ function findUsersByEmail(email) {
     return users.find(user => user.email === email);
 }
 
-
 // Função para atualizar usuário
 async function updateUser(id, data) {
     const index = users.findIndex(user => user.id === id);
@@ -55,14 +54,12 @@ async function updateUser(id, data) {
         ...user,
         nome: data.nome || user.nome,
         email: data.email || user.email,
-        senha: data.senha ? await bcrypt.hash(data.senha, 10) : user.senha, // Se a senha foi fornecida, criptografa
+        senha: data.senha ? await bcrypt.hash(data.senha, 10) : user.senha,
     };
 
     users[index] = updatedUser;
     return updatedUser;
 }
-
-
 
 // Função para remover usuário
 function removeUser(id) {
