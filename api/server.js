@@ -91,23 +91,30 @@ app.get('/vagas/:id?', (req, res) => {
 
 app.post('/login', async (req, res) => {
     const { email, senha } = req.body;
-    //Busca o usuário pelo email
-    const user = usersController.findUsersByEmail(email);
-    console.log('Login request received:', req.body);
-    if (!user) {
-        return res.status(404).send('Usuário não encontrado');
+
+    if (!email || !senha) {
+        return res.status(400).json({ message: 'Email e senha são obrigatórios' });
     }
 
-    //Verifica se a senha fornecida corresponde ao hash armazenado
-    const isPasswordValid = await usersController.checkPassword(user.senha, senha);
+    try {
+        const user = await user.findOne({ email });
 
-    if (isPasswordValid) {
-        // Se a senha for válida, retorna o usuário
-        return res.status(200).json({ message: 'Login bem-sucedido', user });
-    } else {
-        return res.status(401).send('Senha incorreta');
+        if (!user) {
+            return res.status(404).json({ message: 'Usuário não encontrado' });
+        }
+
+        const isPasswordCorrect = await user.comparePassword(senha);
+        if (!isPasswordCorrect) {
+            return res.status(401).json({ message: 'Senha incorreta' });
+        }
+
+        res.status(200).json({ user });
+    } catch (error) {
+        console.error('Erro no login:', error);
+        res.status(500).json({ message: 'Erro no servidor' });
     }
 });
+
 
 // Inicia o servidor
 app.listen(port, () => {

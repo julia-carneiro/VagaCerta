@@ -18,15 +18,20 @@ export default function Login({ navigation }) {
     const handleLogin = async () => {
         try {
             const response = await api.post('/login', { email, senha });
+            
             if (response.status === 200) {
-                const user = response.data.user;
-                await AsyncStorage.setItem('user', JSON.stringify(user));
-                navigation.navigate('Auth', { screen: 'Home' });
+                const user = response.data.user; 
+                await AsyncStorage.setItem('user', JSON.stringify(user)); 
+                navigation.navigate('Auth', { screen: 'Home' }); 
             }
         } catch (error) {
-            setErrorMessage('Erro no servidor ou de conexão.');
+            console.log('Erro no login: ', error.response ? error.response.data : error.message);
+            const message = error.response ? error.response.data : error.message;
+            setErrorMessage(message); // Atualiza o estado com a mensagem de erro
         }
     };
+    
+    
     
    
 

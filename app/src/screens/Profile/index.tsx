@@ -43,6 +43,7 @@ export default function Profile({navigation }) {
         getUser();
     }, []);
     
+    
     const handleSave = async () => {
         try {
             const user = { id, email, nome, senha };
