@@ -91,10 +91,9 @@ app.get('/vagas/:id?', (req, res) => {
 
 app.post('/login', async (req, res) => {
     const { email, senha } = req.body;
-
     //Busca o usuário pelo email
     const user = usersController.findUsersByEmail(email);
-
+    console.log('Login request received:', req.body);
     if (!user) {
         return res.status(404).send('Usuário não encontrado');
     }

@@ -43,18 +43,24 @@ function findUsersByEmail(email) {
 }
 
 // Função para atualizar usuário
-async function updateUser(id, { nome, email, senha }) {
+async function updateUser(id, data) {
     const index = users.findIndex(user => user.id === id);
     if (index === -1) return null;
 
-    let hashedPassword = users[index].senha;
-    if (senha) {
-        hashedPassword = await hashPassword(senha);
-    }
+    const user = users[index];
 
-    users[index] = { id, nome, email, senha: hashedPassword };
-    return users[index];
+    // Atualiza apenas os campos fornecidos
+    const updatedUser = {
+        ...user,
+        nome: data.nome || user.nome,
+        email: data.email || user.email,
+        senha: data.senha ? await hashPassword(data.senha) : user.senha,
+    };
+
+    users[index] = updatedUser;
+    return updatedUser;
 }
+
 
 // Função para remover usuário
 function removeUser(id) {

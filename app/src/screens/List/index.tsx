@@ -28,12 +28,16 @@ export default function List() {
       fetchVagas();
     }, [])
 
+    const formatDate = (date: string) => {
+      const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(date).toLocaleDateString('pt-BR', options);
+    };
+    
     return (
         <Wrapper>
             <Image source={BGTop} style={{maxHeight: 86}}/>
 
             <Container>
-
                 <Logo />
                 <TextVagas>{vagas.length} vagas encontradas!</TextVagas>
                 <ListContainer>
@@ -41,15 +45,15 @@ export default function List() {
                       <Text>Carregando...</Text>
                     ) : (
                       <FlatList
-                      data={vagas}
-                      keyExtractor={(item) => item.id.toString()}
-                      renderItem={({item}) => 
+                        data={vagas}
+                        keyExtractor={(item) => item.id.toString()}
+                        renderItem={({item}) => 
                         <VagaCard
-                      id={item.id}
-                      title={item.titulo} 
-                      dataCreated={item.data_cadastro}
-                      company={item.empresa}
-                            />
+                          id={item.id}
+                          title={item.titulo} 
+                          dataCreated={formatDate(item.dataCadastro)}
+                          company={item.empresa}
+                        />
                         }
                         showsVerticalScrollIndicator={true}
                         ListEmptyComponent={() => (

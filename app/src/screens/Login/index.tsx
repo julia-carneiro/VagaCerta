@@ -7,6 +7,8 @@ import BGTop from '../../assets/BGTop.png';
 import Logo from '../../components/Logo';
 import Input from '../../components/Input';
 import { Button } from '../../components/Button';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function Login({ navigation }) {
     const [email, setEmail] = useState('');
@@ -16,17 +18,17 @@ export default function Login({ navigation }) {
     const handleLogin = async () => {
         try {
             const response = await api.post('/login', { email, senha });
-            
             if (response.status === 200) {
-                //console.log('Login bem-sucedido');
-                navigation.navigate('Auth', {screen: 'Home'}); // Navegação após login bem-sucedido
+                const user = response.data.user;
+                await AsyncStorage.setItem('user', JSON.stringify(user));
+                navigation.navigate('Auth', { screen: 'Home' });
             }
         } catch (error) {
-            const message = error.response ? error.response.data : error.message;
-            setErrorMessage(message); // Atualiza o estado com a mensagem de erro
-            //console.log('Erro no login: ', message);
+            setErrorMessage('Erro no servidor ou de conexão.');
         }
     };
+    
+   
 
     return (
         <Wrapper>
@@ -58,8 +60,8 @@ export default function Login({ navigation }) {
                         title="Entrar" 
                         noSpacing={true} 
                         variant='primary'
-                        onPress={() => navigation.navigate('Auth', {screen: 'Home'})} //DEBUG
-                        //onPress={handleLogin}
+                        //onPress={() => navigation.navigate('Auth', {screen: 'Home'})} //DEBUG
+                        onPress={handleLogin}
                     />
                     <TextContainer>
                         <TextBlack>Não tem uma conta?</TextBlack>
