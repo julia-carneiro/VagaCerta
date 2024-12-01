@@ -22,9 +22,7 @@ Este é um aplicativo mobile para ficar por dentro de vagas de emprego. Ele perm
 
 #### Pré-requisitos:
 
-- Node.js 18+
-- PostgreSQL
-- Sequelize CLI configurado
+- Node.js 
 
 #### Configuração:
 
@@ -36,6 +34,26 @@ Este é um aplicativo mobile para ficar por dentro de vagas de emprego. Ele perm
    ```bash
    yarn start
    ```
+### 3. Mobile
+
+#### Pré-requisitos:
+
+- Expo 
+- Ambiente configurado com emulador Android/iOS ou dispositivo físico.
+
+#### Configuração:
+
+1. Instale as dependências:
+   ```bash
+   yarn install
+   ```
+2. Inicie o servidor Expo:
+   ```bash
+   yarn start
+   ```
+3. Escaneie o QR Code exibido no terminal para abrir o app no dispositivo.
+
+---
 
 #### Endpoints:
 
@@ -83,6 +101,8 @@ Exemplo de requisição:
 
 **Edição de usuário**  
 Endpoint: `POST http://localhost:3000/usuario/{ID DO USUARIO QUE DESEJA ALTERAR}`  
+- Essa funcionalidade também pode ser acessada diretamente pelo aplicativo na aba de Perfil.
+- É possível alterar todas as informações - não é mostrada a senha para ser mais "seguro" mas é possível alterá-la. (Isso é um ponto para melhoria - confirmação por e-mail para alteração de senha)
 Exemplo de requisição:  
 ```json
 {
@@ -95,25 +115,6 @@ Exemplo de requisição:
 **Nota:** 
 - Todas as requisições devem ser feitas individualmente.
 - Não é necessário enviar o id pois ele é definido pelo próprio backend.
-
-### 3. Mobile
-
-#### Pré-requisitos:
-
-- Expo 
-- Ambiente configurado com emulador Android/iOS ou dispositivo físico.
-
-#### Configuração:
-
-1. Instale as dependências:
-   ```bash
-   yarn install
-   ```
-2. Inicie o servidor Expo:
-   ```bash
-   yarn start
-   ```
-3. Escaneie o QR Code exibido no terminal para abrir o app no dispositivo.
 
 ---
 
@@ -140,9 +141,62 @@ Exemplo de requisição:
 
 ---
 
-### Segurança das Senhas
+### 🔐 Segurança das Senhas
 
 As senhas dos usuários são protegidas utilizando o algoritmo **bcrypt**, que aplica hashing com salt para garantir a segurança dos dados. Esse método impede o armazenamento de senhas em texto puro no banco de dados, protegendo contra vazamentos e ataques de força bruta.
+
+Com base nos usuários que você possui, o README pode ser atualizado assim:  
+
+---
+
+### Testes
+
+Para facilitar os testes da aplicação, fornecemos abaixo alguns usuários pré-cadastrados. Utilize as credenciais fornecidas para acessar as funcionalidades.  
+
+**Usuários disponíveis para teste**:  
+
+1. **Teste** 
+   - **E-mail**: teste  
+   - **Senha**: 1
+   
+2. **João Silva** 
+   - **E-mail**: joao.silva@example.com  
+   - **Senha**: senha123  
+
+2. **Maria Oliveira**  
+   - **E-mail**: maria.oliveira@example.com  
+   - **Senha**: senha456  
+
+3. **Carlos Pereira**  
+   - **E-mail**: carlos.pereira@example.com  
+   - **Senha**: senha789
+
+⚠️ **Nota**: As senhas armazenadas no banco de dados estão criptografadas com bcrypt então lembre da senha dos usuários novos que cadastrar. Utilize as credenciais acima diretamente para login. 
+
+**Ids de Vagas já cadastradas**:
+
+```json
+{
+    "id": "fef8ed53-57da-40eb-81f1-8b39228389e9",
+    "titulo": "Desenvolvedor Front-end",
+    "descricao": "Desenvolvimento de interfaces web utilizando React.",
+    "dataCadastro": "2024-06-30T00:00:00.000Z",
+    "telefone": "1234-5678",
+    "status": "aberta",
+    "empresa": "Tech Solutions",
+},
+{
+    "id": "e8ad3ec5-1db9-4f95-b799-3bb093500194",
+    "titulo": "Desenvolvedor Back-end",
+    "descricao": "Desenvolvimento de APIs RESTful utilizando Node.js.",
+    "dataCadastro": "2024-06-28T00:00:00.000Z",
+    "telefone": "8765-4321",
+    "status": "aberta",
+    "empresa": "Innovative Tech",
+}
+```
+
+⚠️ **Nota**: Utilize o GET para visualizar todas as vagas cadastradas e seus correspondentes IDs.
 
 ## 📚 Tecnologias Utilizadas
 
@@ -165,5 +219,6 @@ As senhas dos usuários são protegidas utilizando o algoritmo **bcrypt**, que a
 - Adicionar notificações push para novas vagas.
 - Refatorar a UI/UX do aplicativo.
 - Criar um perfil para Administrador/empresa - permitindo adicionar vagas diretamente no app.
+- Confirmação por e-mail para alteração de senha/"Esqueci minha senha"
 
 ---
