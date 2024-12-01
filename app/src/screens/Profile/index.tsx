@@ -47,7 +47,7 @@ export default function Profile({ navigation }) {
                     // Código 409: Conflito (e-mail já cadastrado)
                     alert('Este e-mail já está em uso. Por favor, use outro e-mail.');
                 }
-                console.error('Erro ao recuperar dados do usuário:', error);
+                //('Erro ao recuperar dados do usuário:', error);
             }
         };
         getUser();
@@ -78,7 +78,7 @@ export default function Profile({ navigation }) {
                 // Código 409: Conflito (e-mail já cadastrado)
                 alert('Este e-mail já está em uso. Por favor, use outro e-mail.');
             }
-            console.error('Erro ao salvar os dados:', error);
+            //console.error('Erro ao salvar os dados:', error);
         }
     };
 
