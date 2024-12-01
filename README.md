@@ -20,6 +20,10 @@ Este é um aplicativo mobile para ficar por dentro de vagas de emprego. Ele perm
 
 ### 2. Backend
 
+ ```bash
+   cd api
+   ```
+   
 #### Pré-requisitos:
 
 - Node.js 
@@ -36,6 +40,10 @@ Este é um aplicativo mobile para ficar por dentro de vagas de emprego. Ele perm
    ```
 ### 3. Mobile
 
+```bash
+   cd app
+   ```
+   
 #### Pré-requisitos:
 
 - Expo 
