@@ -86,7 +86,7 @@ export const InfoValue = styled.Text`
 `;
 
 interface StatusBadgeProps {
-  status: 'aberta' | 'fechada'; 
+  status: 'aberta' | 'encerrada'; 
 }
 
 export const StatusBadge = styled.View<StatusBadgeProps>`
