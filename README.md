@@ -18,7 +18,21 @@ Este é um aplicativo mobile para ficar por dentro de vagas de emprego. Ele perm
 
 ### 1. Clonar o repositório
 
-### 2. Backend
+### 2. Alterar o Ip da sua rede 
+- Como não pude hospedar a aplicação, é necessário trocar um a variável baseURL - aonde esta escrito 'localhost' deve ser o IP da sua rede. 
+- O código abaixo é onde você deve alterar, o caminho dele é: '\app\src\services\api.js'
+- Caso prefira, apenas dê um Ctrl+F e pesquise pelo comentário '//POR FAVOR, ALTERE 'localhost' PARA O IP DA SUA REDE'
+```react
+import axios from 'axios';
+
+const api = axios.create({
+    baseURL: 'http://localhost:3000' //POR FAVOR, ALTERE 'localhost' PARA O IP DA SUA REDE
+});
+
+export default api;
+```
+
+### 3. Backend
 
  ```bash
    cd api
@@ -38,7 +52,7 @@ Este é um aplicativo mobile para ficar por dentro de vagas de emprego. Ele perm
    ```bash
    yarn start
    ```
-### 3. Mobile
+### 4. Mobile
 
 ```bash
    cd app
@@ -228,5 +242,6 @@ Para facilitar os testes da aplicação, fornecemos abaixo alguns usuários pré
 - Refatorar a UI/UX do aplicativo.
 - Criar um perfil para Administrador/empresa - permitindo adicionar vagas diretamente no app.
 - Confirmação por e-mail para alteração de senha/"Esqueci minha senha"
+- Hospedar a aplicação
 
 ---
