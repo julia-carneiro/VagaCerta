@@ -6,9 +6,6 @@ import Logo from '../../components/Logo';
 import VagaCard from '../../components/VagaCard';
 import api from '../../services/api'; 
 
-import { useFocusEffect } from '@react-navigation/native';
-
-
 export default function List() {
 
     const [vagas, setVagas] = useState([]);
@@ -70,7 +67,7 @@ export default function List() {
                                     Ainda não existem  vagas cadastradas
                                 </Text>
                                 <Text>
-                                    Crie vagas.
+                                    Em breve novas vagas chegarão para você!
                                 </Text>
                             </View>
                         )}

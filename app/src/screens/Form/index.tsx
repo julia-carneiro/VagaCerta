@@ -5,8 +5,8 @@ import BGTop from '../../assets/BGTop.png';
 import Logo from '../../components/Logo';
 import Input from '../../components/Input';
 import { Button } from '../../components/Button';
-import api from '../../services/api'; // Serviço de API
-import AsyncStorage from '@react-native-async-storage/async-storage'; // Para armazenar os dados localmente, caso necessário
+import api from '../../services/api'; 
+import AsyncStorage from '@react-native-async-storage/async-storage'; 
 
 export default function FormScreen({ navigation }) {
     // Estados para o formulário
@@ -30,10 +30,9 @@ export default function FormScreen({ navigation }) {
             };
 
             // Envia a requisição para a API
-            const response = await api.post('/usuarios', userData); // Rota de cadastro, ajuste conforme sua API
+            const response = await api.post('/usuarios', userData); 
 
             if (response.status === 201) {
-                // Armazenando os dados do usuário localmente (se necessário)
                 await AsyncStorage.setItem('user', JSON.stringify(response.data));
 
                 alert('Cadastro realizado com sucesso!');

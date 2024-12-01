@@ -6,7 +6,7 @@ const sequelize = require('./db'); // Conexão com o banco de dados
 const User = require('./models/User'); // Modelo de Usuário
 const Vaga = require('./models/Vaga'); // Modelo de Vaga
 
-const app = express(); // Inicializa o app Express
+const app = express(); 
 const port = 3000;
 const bcrypt = require('bcrypt');
 
@@ -139,7 +139,7 @@ app.post('/login', async (req, res) => {
 });
 
 
-// Sincronize o banco de dados antes de iniciar o servidor
+//Sincronizando o banco de dados antes de iniciar o servidor
 sequelize.sync({ force: false })
     .then(() => {
         console.log('Banco de dados sincronizado.');

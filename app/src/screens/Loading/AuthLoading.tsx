@@ -7,9 +7,9 @@ export default function AuthLoadingScreen({ navigation }) {
         const checkLogin = async () => {
             const userData = await AsyncStorage.getItem('user');
             if (userData) {
-                navigation.navigate('Auth', { screen: 'Home' }); // Navega para a tela autenticada
+                navigation.navigate('Auth', { screen: 'Home' }); 
             } else {
-                navigation.navigate('Login'); // Navega para a tela de login
+                navigation.navigate('Login'); 
             }
         };
 
