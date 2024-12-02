@@ -218,7 +218,9 @@ Para facilitar os testes da aplicação, fornecemos abaixo alguns usuários pré
 }
 ```
 
-⚠️ **Nota**: Utilize o GET para visualizar todas as vagas cadastradas e seus correspondentes IDs.
+⚠️ **Nota**: 
+- Utilize o GET para visualizar todas as vagas cadastradas e seus correspondentes IDs.
+- Caso você insira uma vaga e ela ainda não apareceu, experimente arrastar a lista de vagas para baixo para **atualizar a página.**
 
 ## 📚 Tecnologias Utilizadas
 
