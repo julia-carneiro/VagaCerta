@@ -219,6 +219,8 @@ Para facilitar os testes da aplicação, fornecemos abaixo alguns usuários pré
 ```
 
 ⚠️ **Nota**: 
+- Lembre que o padrão de data é "2024-06-01".
+- Opte por colocar o status da empresa num padrão também "aberta" ou "fechada"
 - Utilize o GET para visualizar todas as vagas cadastradas e seus correspondentes IDs.
 - Caso você insira uma vaga e ela ainda não apareceu, experimente arrastar a lista de vagas para baixo para **atualizar a página.**
 
