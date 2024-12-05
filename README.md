@@ -167,10 +167,6 @@ Exemplo de requisição:
 
 As senhas dos usuários são protegidas utilizando o algoritmo **bcrypt**, que aplica hashing com salt para garantir a segurança dos dados. Esse método impede o armazenamento de senhas em texto puro no banco de dados, protegendo contra vazamentos e ataques de força bruta.
 
-Com base nos usuários que você possui, o README pode ser atualizado assim:  
-
----
-
 ### Testes
 
 Para facilitar os testes da aplicação, fornecemos abaixo alguns usuários pré-cadastrados. Utilize as credenciais fornecidas para acessar as funcionalidades.  
